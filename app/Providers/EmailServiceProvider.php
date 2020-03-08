@@ -2,20 +2,20 @@
 
 namespace App\Providers;
 
-use Laravel\Lumen\Providers\EmailServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider as ServiceProvider;
 
 class EmailServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(MailjetConnector::class, function ($app) {
-            $config = $app->make('config')->get('services.mailjet', []);
-            return new MailjetConnector($config);
-        });
+        // $this->app->singleton(MailjetConnector::class, function ($app) {
+        //     $config = $app->make('config')->get('services.mailjet', []);
+        //     return new MailjetConnector($config);
+        // });
 
-        $this->app->singleton(SendgridConnector::class, function ($app) {
-            $config = $app->make('config')->get('services.sendgrid', []);
-            return new SendgridConnector($config);
-        });
+        // $this->app->singleton(SendgridConnector::class, function ($app) {
+        //     $config = $app->make('config')->get('services.sendgrid', []);
+        //     return new SendgridConnector($config);
+        // });
     }
 }
