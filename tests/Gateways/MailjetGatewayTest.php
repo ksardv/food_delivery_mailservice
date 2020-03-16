@@ -32,10 +32,10 @@ class MailjetGatewayTest extends TestCase
     /**
      * @return void
      */
-    public function testSend(): void
-    {
-        $mail = $this->gateway->send();
+    // public function testSend(): void
+    // {
+    //     $mail = $this->gateway->send();
 
-        $this->assertTrue($mail);
-    }
+    //     $this->assertTrue($mail);
+    // }
 }
