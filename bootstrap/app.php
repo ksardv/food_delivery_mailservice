@@ -93,6 +93,13 @@ $app->configure('app');
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\EmailServiceProvider::class);
+
+$app->configure('amqp');
+$app->register(Bschmitt\Amqp\LumenServiceProvider::class);
+
+$app->withFacades();
+class_alias(\Illuminate\Support\Facades\App::class, 'App');
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

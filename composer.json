@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "bschmitt/laravel-amqp": "^2.0",
         "laravel/lumen-framework": "^6.0",
         "mailjet/mailjet-apiv3-php": "^1.4",
         "sendgrid/sendgrid": "~7",
