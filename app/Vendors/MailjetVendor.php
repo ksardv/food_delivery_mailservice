@@ -18,6 +18,8 @@ class MailjetVendor implements Vendor
         $this->client = new Client(
             $configurationParams['key'],
             $configurationParams['secret'],
+            true,
+            ['version' => 'v3.1']
         );
     }
 
