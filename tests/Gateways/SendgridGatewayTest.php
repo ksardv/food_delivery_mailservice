@@ -30,11 +30,11 @@ class SendgridGatewayTest extends TestCase
     /**
      * @return void
      */
-    public function testSend(): void
-    {
-        $successStatusCode = 202;
-        $response = $this->gateway->send();
+    // public function testSend(): void
+    // {
+    //     $successStatusCode = 202;
+    //     $response = $this->gateway->send();
 
-        $this->assertEquals($response, $successStatusCode);
-    }
+    //     $this->assertEquals($response, $successStatusCode);
+    // }
 }

@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Email;
+namespace App\EmailVO;
 
-class Email
+final class EmailVO
 {
+    /**
+     * Email is a Value Object
+     */
     private $from;
     private $to;
     private $subject;
