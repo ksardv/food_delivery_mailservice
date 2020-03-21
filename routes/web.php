@@ -16,3 +16,8 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/sendmail', 'EmailController@send');
+
+$router->get('/publish', 'PublisherController@index');
+$router->get('/close', 'PublisherController@close');
+
+$router->get('/consume', 'WorkerController@index');

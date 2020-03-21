@@ -9,6 +9,7 @@
         "bschmitt/laravel-amqp": "^2.0",
         "laravel/lumen-framework": "^6.0",
         "mailjet/mailjet-apiv3-php": "^1.4",
+        "php-amqplib/php-amqplib": "^2.11",
         "sendgrid/sendgrid": "~7",
         "squizlabs/php_codesniffer": "*"
     },
