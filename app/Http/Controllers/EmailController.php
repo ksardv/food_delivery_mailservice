@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Email;
-use App\Publisher\Publisher;
+use App\Publisher\EmailPublisher;
 use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
@@ -48,7 +48,7 @@ class EmailController extends Controller
 
         $mail = $this->storeEmail($data);
 
-        $publisher = new Publisher();
+        $publisher = new EmailPublisher();
         $publisher->publish($mail);
     }
 
