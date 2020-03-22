@@ -38,12 +38,9 @@ class Publisher
         Log::channel('publisher')->info('Email is published: '.$email);
 
         echo ' [x] Sent ', $data, "\n";
-    }
 
-    public function close()
-    {
-        $this->channel->close();
-        $this->connection->close();
+        $channel->close();
+        $connection->close();
     }
 }
 

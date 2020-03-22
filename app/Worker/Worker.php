@@ -3,6 +3,7 @@
 namespace App\Worker;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use Illuminate\Support\Facades\Log;
 
 class Worker
 {
@@ -18,6 +19,7 @@ class Worker
         $callback = function ($msg) {
             echo ' [x] Received ', $msg->body, "\n";
             sleep(substr_count($msg->body, '.'));
+            Log::channel('worker')->info('Email is consumed: '.$msg->body);
             echo " [x] Done\n";
             $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
         };
@@ -28,6 +30,8 @@ class Worker
         while ($channel->is_consuming()) {
             $channel->wait();
         }
+
+
 
         $channel->close();
         $connection->close();
