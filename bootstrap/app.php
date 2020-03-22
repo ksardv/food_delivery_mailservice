@@ -17,6 +17,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 |
 */
 
+
 $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
@@ -96,7 +97,8 @@ $app->register(App\Providers\EmailServiceProvider::class);
 $app->configure('services');
 $app->configure('amqp');
 $app->configure('database');
-$app->register(Bschmitt\Amqp\LumenServiceProvider::class);
+$app->configure('logging');
+//$app->register(Bschmitt\Amqp\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

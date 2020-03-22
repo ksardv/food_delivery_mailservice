@@ -5,6 +5,7 @@ namespace App\Publisher;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use App\Email;
+use Illuminate\Support\Facades\Log;
 
 class Publisher
 {
@@ -16,6 +17,8 @@ class Publisher
      */
     public function publish(Email $email)
     {
+        Log::channel('publisher')->info('Email is published');
+dd('here');
         $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $channel = $connection->channel();
 

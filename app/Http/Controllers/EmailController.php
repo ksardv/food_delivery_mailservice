@@ -48,9 +48,9 @@ class EmailController extends Controller
         }
 
         $mail = $this->storeEmail($data);
-dd($mail);
-        // $publisher = new Publisher();
-        // $publisher->publish($mail);
+
+        $publisher = new Publisher();
+        $publisher->publish($mail);
     }
 
     /**
@@ -72,12 +72,13 @@ dd($mail);
 
     public function storeEmail($data)
     {
-        $email = new Email();
-        $email->to = $data['to'];
-        $email->from = $data['from'];
-        $email->subject = $data['subject'];
-        $email->content = $data['content'];
-        $email->save();
+        $email = Email::create([
+            'to' => serialize($data['to']),
+            'from' => serialize($data['from']),
+            'subject' => $data['subject'],
+            'content' => $data['content'],
+            'status' => null
+        ]);
 
         return $email;
     }
