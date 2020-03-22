@@ -9,6 +9,7 @@ clone the project
 run 'docker-compose up'
 
 Below is an example JSON payload:
+```javascript
 {
   "from": {
     "email": "petar.ivanov2001@mail.bg",
@@ -24,6 +25,7 @@ Below is an example JSON payload:
   "text": "My first Mailjet email",
   "html": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
 }
+```
 
 to consume the emails form the rabbitmq queue:
 php artisan consume:email
