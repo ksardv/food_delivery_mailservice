@@ -21,9 +21,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +95,7 @@ $app->configure('app');
 $app->register(App\Providers\EmailServiceProvider::class);
 $app->configure('services');
 $app->configure('amqp');
+$app->configure('database');
 $app->register(Bschmitt\Amqp\LumenServiceProvider::class);
 
 /*

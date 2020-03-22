@@ -11,13 +11,9 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+// $router->get('/', function () use ($router) {
+//     return $router->app->version();
+// });
 
-$router->get('/sendmail', 'EmailController@send');
-
-$router->get('/publish', 'PublisherController@index');
-$router->get('/close', 'PublisherController@close');
-
-$router->get('/consume', 'WorkerController@index');
+$router->post('/sendmail', 'EmailController@send');
+$router->get('/mails', 'EmailController@getAllEmails');

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\DripEmailer;
-use App\User;
+use App\Email;
 use Illuminate\Console\Command;
+use Illuminate\Http\Request;
 
 class SendEmails extends Command
 {
@@ -13,14 +13,14 @@ class SendEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'email:send {user}';
+    protected $signature = 'send:email';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send drip e-mails to a user';
+    protected $description = 'Send test preset e-mails';
 
     /**
      * Create a new command instance.
@@ -35,11 +35,28 @@ class SendEmails extends Command
     /**
      * Execute the console command.
      *
-     * @param  \App\DripEmailer  $drip
+     * @param  $data
      * @return mixed
      */
-    public function handle(DripEmailer $drip)
+    public function handle()
     {
-        $drip->send(User::find($this->argument('user')));
+        $data = [
+                    'From' => [
+                    'Email' => "petar.ivanov2001@mail.bg",
+                    'Name' => "Petar"
+                    ],
+                    'To' => [
+                    [
+                        'Email' => "petar.ivanov2001@mail.bg",
+                        'Name' => "Petar"
+                    ]
+                    ],
+                    'Subject' => "Greetings from Mailjet.",
+                    'TextPart' => "My first Mailjet email",
+                    'HTMLPart' => "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+                    'CustomID' => "AppGettingStartedTest"
+            ];
+
+            $formattedData = json_encode($data);
     }
 }
