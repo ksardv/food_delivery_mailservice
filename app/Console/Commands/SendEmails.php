@@ -35,7 +35,6 @@ class SendEmails extends Command
     /**
      * Execute the console command.
      *
-     * @param  $data
      * @return mixed
      */
     public function handle()

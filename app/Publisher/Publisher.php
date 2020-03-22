@@ -17,8 +17,6 @@ class Publisher
      */
     public function publish(Email $email)
     {
-        Log::channel('publisher')->info('Email is published');
-dd('here');
         $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $channel = $connection->channel();
 
@@ -26,13 +24,18 @@ dd('here');
 
         if (empty($email)) {
             $data = "No email....";
+        }else{
+            $data = $email;
         }
+
         $msg = new AMQPMessage(
             $data,
             array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
         );
 
         $channel->basic_publish($msg, '', 'email_queue');
+
+        Log::channel('publisher')->info('Email is published: '.$email);
 
         echo ' [x] Sent ', $data, "\n";
     }

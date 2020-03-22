@@ -38,7 +38,6 @@ class EmailController extends Controller
             return false;
         }
 
-        //TODO add logging
         $data = json_decode($request->getContent(), true);
 
         $validatedData = $this->validateData($data);
