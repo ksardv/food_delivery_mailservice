@@ -21,23 +21,29 @@ class SendgridGateway implements MailGateway
     public function send($email)
     {
         var_dump('HERE IS SENDGRID.......'.$email);
-        //replace with the email entity
-        // $mail = new Mail();
-        // $mail->setFrom("test@example.com", "Example User");
-        // $mail->setSubject("Sending with SendGrid is Fun");
-        // $mail->addTo("test@example.com", "Example User");
-        // $mail->addContent("text/plain", "and easy to do anywhere, even with PHP");
-        // $mail->addContent(
-        //     "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-        // );
+        $data = json_decode($email, true);
 
-        // $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-        // try {
-        //     $response = $sendgrid->send($mail);
-        //     return $response->statusCode();
-        // } catch (Exception $e) {
-        //     echo 'Caught exception: '. $e->getMessage() ."\n";
-        // }
+        $mail = new Mail();
+        $mail->setFrom($data['from']['email'], $data['from']['name']);
+        $mail->setSubject($data['subject']);
+        $mail->addTo($data['to']['email'], $data['to']['name']);
+        if(isset($data['text'])){
+            $mail->addContent("text/plain", $data['text']);
+        }
+        if(isset($data['html'])){
+            $mail->addContent(
+                "text/html", $data['html']
+            );
+        }
+
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $response = $sendgrid->send($mail);
+            var_dump('HERE IS SG response.....'.$response->statusCode());
+            return $response->statusCode();
+        } catch (Exception $e) {
+            echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
 
     }
 }

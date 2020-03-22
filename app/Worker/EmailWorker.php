@@ -24,7 +24,6 @@ class EmailWorker implements Worker
         echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
         $callback = function ($msg) {
-            echo ' [x] Received ', $msg->body, "\n";
             Log::channel('worker')->info('Email is consumed: '.$msg->body);
             $this->sendMail($msg->body);
             echo " [x] Done\n";

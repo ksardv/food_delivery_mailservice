@@ -38,9 +38,9 @@ class EmailController extends Controller
             return false;
         }
 
-        $data = json_decode($request->getContent(), true);
+        $data = $request->getContent();
 
-        $validatedData = $this->validateData($data);
+        $validatedData = $this->validateData(json_decode($data, true));
 
         if(count($validatedData->errors())){
             return $validatedData->errors();
@@ -49,7 +49,7 @@ class EmailController extends Controller
         $mail = $this->storeEmail($data);
 
         $publisher = new EmailPublisher();
-        $publisher->publish($mail);
+        $publisher->publish($data);
     }
 
     /**
@@ -62,8 +62,7 @@ class EmailController extends Controller
             'from.name' => 'required',
             'to.email' => 'required|email',
             'to.name' => 'required',
-            'subject' => 'required',
-            'content' => 'required'
+            'subject' => 'required'
         ]);
 
         return $validatedData;
@@ -72,10 +71,7 @@ class EmailController extends Controller
     public function storeEmail($data)
     {
         $email = Email::create([
-            'to' => serialize($data['to']),
-            'from' => serialize($data['from']),
-            'subject' => $data['subject'],
-            'content' => $data['content'],
+            'email' => $data,
             'status' => null
         ]);
 

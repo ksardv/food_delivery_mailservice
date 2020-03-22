@@ -13,9 +13,9 @@ class EmailPublisher implements Publisher
     private $connection;
 
     /**
-     * @param Email $email
+     * @param $email
      */
-    public function publish(Email $email)
+    public function publish($email)
     {
         $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
         $channel = $connection->channel();
