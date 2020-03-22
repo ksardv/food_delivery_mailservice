@@ -20,14 +20,12 @@ services:
           - ./:/usr/share/nginx/mailservice
           - ./nginx/conf.d/mailservice.conf:/etc/nginx/conf.d/mailservice.conf
   rabbitmq:
-      image: rabbitmq:3-management
+      image: rabbitmq:3.6-management-alpine
       container_name: mailservice_rabbitmq
       ports:
           - "5672:5672"
           - "15672:15672"
       restart: always
-      volumes:
-          - rabbitmq-data:/var/lib/rabbitmq
   mysql:
       image: mysql:5.7
       container_name: mailservice_mysql
@@ -41,6 +39,3 @@ services:
 networks:
   mailservice:
     driver: bridge
-volumes:
-  rabbitmq-data:
-    driver: local

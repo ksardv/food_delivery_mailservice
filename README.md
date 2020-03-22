@@ -4,6 +4,9 @@ When such an external service is unavailable there is a fallback to a secondary 
 The tech stack is lumen, docker, mysql, nginx.
 
 Installation steps:
+clone the project
+'cd' to the project and run 'docker-compose build'
+run 'docker-compose up'
 
 Below is an example JSON payload:
 {

@@ -20,8 +20,7 @@ class MailjetGateway implements MailGateway
      */
     public function send($email)
     {
-        var_dump('HERE IS MAILJET.......'.$email);
-
+        echo 'sending through mailjet';
         $data = json_decode($email, true);
 
             $body = [
@@ -50,11 +49,11 @@ class MailjetGateway implements MailGateway
                 $body['Messages'][0]['TextPart'] = $data['text'];
             }
 
-            // try {
-            //     $response = $this->vendor->post(Resources::$Email, ['body' => $body]);
-            //     return $response->success();
-            // } catch (Exception $e) {
-            //     echo 'Caught exception: ',  $e->getMessage(), "\n";
-            // }
+            try {
+                $response = $this->vendor->post(Resources::$Email, ['body' => $body]);
+                return $response->success();
+            } catch (Exception $e) {
+                echo 'Caught exception: ',  $e->getMessage(), "\n";
+            }
     }
 }

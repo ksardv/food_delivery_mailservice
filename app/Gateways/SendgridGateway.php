@@ -20,7 +20,7 @@ class SendgridGateway implements MailGateway
      */
     public function send($email)
     {
-        var_dump('HERE IS SENDGRID.......'.$email);
+        echo 'sending via sendgrid gw';
         $data = json_decode($email, true);
 
         $mail = new Mail();
@@ -39,11 +39,9 @@ class SendgridGateway implements MailGateway
         $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
         try {
             $response = $sendgrid->send($mail);
-            var_dump('HERE IS SG response.....'.$response->statusCode());
             return $response->statusCode();
         } catch (Exception $e) {
             echo 'Caught exception: '. $e->getMessage() ."\n";
         }
-
     }
 }
