@@ -36,7 +36,20 @@ Below is an example JSON payload:
 You can use postman or curl or whatever tool you like to send the json payload to the api.
 send it to the following endpoint:
 http://<IP-address>/sendmail
+ - to get the endpoint ip address run 'docker inspect mailservice_nginx'
+ - test with curl:
+ curl -X POST -H "Content-Type: application/json" \
+ -d '{"from":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"to":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"subject":"Greetings from Mailjet.","text":"My first Mailjet email","html":"<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!"}' \
+ http://<IP-address>/sendmail
 
 Now the emails should be added to the queue.
 To consume them from the rabbitmq queue run the following command:
 docker-compose exec app php artisan consume:email
+
+Checking the data in the db:
+1. docker exec -it mailservice_mysql /bin/bash
+2. mysql -u root -p
+ - you will be prompted to enter a password - enter root
+3. select * from mailservice.emails;
+
+The publisher and worker log the information in the log files with the same names located in storage/logs.
