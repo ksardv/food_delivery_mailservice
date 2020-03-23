@@ -6,14 +6,33 @@ The tech stack is lumen, docker, mysql, nginx.
 Installation steps:
 1. Clone the project
 2. 'cd' to the project and run 'docker-compose build'
-3. run 'docker-compose up'
+3. copy .env.example to .env and enter the data as follow:
+
+DB_CONNECTION=mysql
+DB_HOST=<mailservice_mysql-service-ip>
+DB_PORT=3306
+DB_DATABASE=mailservice
+DB_USERNAME=root
+DB_PASSWORD=root
+
+CACHE_DRIVER=file
+QUEUE_CONNECTION=sync
+
+MAILJET_APIKEY=your_mailjet_apikey
+MAILJET_APISECRET=your_mailjetapisecret_key
+
+SENDGRID_API_KEY=sendgrid_apikey
+
+RABBITMQ_HOST=<mailservice_rabbitmq-service-ip>
+
+4. run 'docker-compose up'
  - In case mysql exits with exit code 1 run 'docker-compose up mysql'
-4. Obtain the IP of the mysql service by executing 'docker inspect mailservice_mysql'
+5. Obtain the IP of the mysql service by executing 'docker inspect mailservice_mysql'
  - It is near the bottom of the output looking similar to:
  "IPAddress": "192.168.160.4"
-5. put the IP in the laravel project .env file as DB_HOST value:
+6. put the IP in the laravel project .env file as DB_HOST value:
     DB_HOST=192.168.160.4
-6. run 'docker-compose exec app php artisan migrate'
+7. run 'docker-compose exec app php artisan migrate'
 
 Below is an example JSON payload:
 ```javascript
