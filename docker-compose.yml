@@ -1,24 +1,33 @@
 version: "3.5"
 services:
-  php_fpm:
-      build: .
-      container_name: mailservice_php_fpm
-      working_dir: /usr/share/nginx/mailservice
-      networks:
-        - mailservice
-      volumes:
-          - ./:/usr/share/nginx/mailservice
+  app:
+    build:
+      args:
+        user: kolyo
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: mailservice
+    container_name: mailservice-app
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - mailservice
   nginx:
-      image: nginx:1.15
+      image: nginx:alpine
       container_name: mailservice_nginx
-      working_dir: /usr/share/nginx/mailservice
-      networks:
-        - mailservice
+      restart: unless-stopped
       ports:
-          - "8080:80"
+          - 8080:80
       volumes:
-          - ./:/usr/share/nginx/mailservice
-          - ./nginx/conf.d/mailservice.conf:/etc/nginx/conf.d/mailservice.conf
+          - ./:/var/www
+          - ./nginx/conf.d/:/etc/nginx/conf.d
+      networks:
+          - mailservice
   rabbitmq:
       image: rabbitmq:3.6-management-alpine
       container_name: mailservice_rabbitmq
