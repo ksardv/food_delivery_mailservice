@@ -20,6 +20,7 @@ services:
   nginx:
       image: nginx:alpine
       container_name: mailservice_nginx
+      hostname: mailservice.io
       restart: unless-stopped
       ports:
           - 8080:80
@@ -45,6 +46,8 @@ services:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_USER=root
         - MYSQL_PASSWORD=root
+      volumes:
+        - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
 networks:
   mailservice:
     driver: bridge
