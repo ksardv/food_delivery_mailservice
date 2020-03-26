@@ -15,6 +15,9 @@ services:
     working_dir: /var/www/
     volumes:
       - ./:/var/www
+    environment:
+      - "DB_HOST=mysql"
+      - "RABBITMQ_HOST=rabbitmq"
     networks:
       - mailservice
   nginx:
@@ -27,14 +30,19 @@ services:
       volumes:
           - ./:/var/www
           - ./nginx/conf.d/:/etc/nginx/conf.d
+      environment:
+        WAIT_HOSTS: rabbitmq:5672, mysql:3306
       networks:
           - mailservice
   rabbitmq:
       image: rabbitmq:3.6-management-alpine
       container_name: mailservice_rabbitmq
+      environment:
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASS: guest
       ports:
-          - "5672:5672"
-          - "15672:15672"
+          - 5672:5672
+          - 15672:15672
       restart: always
   mysql:
       image: mysql:5.7

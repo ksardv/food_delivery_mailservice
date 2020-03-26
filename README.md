@@ -27,12 +27,7 @@ RABBITMQ_HOST=<mailservice_rabbitmq-service-ip>
 ```
 4. run 'docker-compose up'
  - In case mysql exits with exit code 1 run 'docker-compose up mysql'
-5. Obtain the IP of the mysql service by executing 'docker inspect mailservice_mysql'
- - It is near the bottom of the output looking similar to:
- "IPAddress": "192.168.160.4"
-6. put the IP in the laravel project .env file as DB_HOST value:
-    DB_HOST=192.168.160.4
-7. run 'docker-compose exec app php artisan migrate'
+5. run 'docker-compose exec app php artisan migrate'
 
 Below is an example JSON payload:
 ```javascript
