@@ -1,27 +1,22 @@
 {
   "name": "takeawaymail",
   "version": "1.0.0",
-  "description": "This is a mailing microservice which uses external services to actually sent the emails.  When such an external service is unavailable there is a fallback to a secondary service.",
+  "description": "mailservice",
   "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ksardv/food_delivery_mailservice.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ksardv/food_delivery_mailservice/issues"
-  },
-  "homepage": "https://github.com/ksardv/food_delivery_mailservice#readme",
+  "repository": "https://github.com/ksardv/food_delivery_mailservice",
+  "author": "ksardv <kolyo.sardamov@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "laravel-mix": "^5.0.4",
     "vue": "^2.6.11"
+  },
+  "scripts": {
+    "dev": "yarn run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "yarn run development -- --watch",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "yarn run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   }
 }

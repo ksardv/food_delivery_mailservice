@@ -11,9 +11,7 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->view('/', 'app');
 
 $router->post('/sendmail', 'EmailController@send');
 $router->get('/mails', 'EmailController@getAllEmails');
