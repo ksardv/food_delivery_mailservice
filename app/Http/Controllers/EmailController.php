@@ -22,6 +22,11 @@ class EmailController extends Controller
         //
     }
 
+    public function index()
+    {
+        return view('app');
+    }
+
     public function getAllEmails()
     {
         $mails = Email::all();

@@ -1,6 +1,6 @@
 <template>
     <div>
-        test lumen implementation
+        New email
     </div>
 </template>
 
