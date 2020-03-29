@@ -27,7 +27,11 @@ RABBITMQ_HOST=<mailservice_rabbitmq-service-ip>
 ```
 4. run 'docker-compose up'
  - In case mysql exits with exit code 1 run 'docker-compose up mysql'
-5. run 'docker-compose exec app php artisan migrate'
+5. run 'docker-compose exec app composer install'
+6. run 'docker-compose exec app php artisan migrate'
+7. run 'docker-compose exec app yarn run dev'
+
+N.B. In case you are running this project on Vagrant guest on Windows Host, you will receive symlinks errors wen you run npm/yarn install. To fix this run the windows console as administrator and then run vagrant up.
 
 Below is an example JSON payload:
 ```javascript
