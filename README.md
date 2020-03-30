@@ -73,3 +73,5 @@ docker-compose exec app php artisan consume:email
 3. select * from mailservice.emails;
 
 The publisher and worker log the information in the log files with the same names located in storage/logs.
+
+VueJs application is implemented for sending new emails and listing the sent ones.
