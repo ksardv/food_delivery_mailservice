@@ -54,7 +54,7 @@ class EmailController extends Controller
         $mail = $this->storeEmail($data['message']);
 
         $publisher = new EmailPublisher();
-        $publisher->publish($data['message']);
+        $publisher->publish(json_encode($data['message']));
     }
 
     /**
