@@ -12,11 +12,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="email in emailsList" :key="email">
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                    <tr v-for="email in emailsList" :key="email.id">
+                        <td>{{ email.email.from.email }}</td>
+                        <td>{{ email.email.to.email }}</td>
+                        <td>{{ email.email.subject }}</td>
+                        <td>{{ email.email.text }}</td>
+                        <td>{{ email.status }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -37,7 +38,9 @@
         mounted() {
             axios
                 .get('/mails')
-                .then(response => (this.emailsList = response.data))
+                .then((response) => {
+                    this.emailsList = response.data
+                })
                 .catch(error => console.log(error))
         }
     }
