@@ -25,8 +25,8 @@ SENDGRID_API_KEY=sendgrid_apikey
 
 RABBITMQ_HOST=<mailservice_rabbitmq-service-ip>
 ```
-4. run 'docker-compose up'
- - In case mysql exits with exit code 1 run 'docker-compose up mysql'
+4. run 'docker-compose up -d'
+ - In case mysql exits with exit code 1 run 'docker-compose up mysql -d'
 5. run 'docker-compose exec app composer install'
 6. run 'docker-compose exec app php artisan migrate'
 7. run 'docker-compose exec app yarn run dev'
