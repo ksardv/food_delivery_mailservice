@@ -25,26 +25,33 @@ SENDGRID_API_KEY=sendgrid_apikey
 
 RABBITMQ_HOST=<mailservice_rabbitmq-service-ip>
 ```
-4. run 'docker-compose up'
- - In case mysql exits with exit code 1 run 'docker-compose up mysql'
-5. run 'docker-compose exec app php artisan migrate'
+4. run 'docker-compose up -d'
+ - In case mysql exits with exit code 1 run 'docker-compose up mysql -d'
+5. run 'docker-compose exec app composer install'
+6. run 'docker-compose exec app php artisan migrate'
+7. run 'docker-compose exec app yarn run dev'
+
+N.B. In case you are running this project on Vagrant guest on Windows Host, you will receive symlinks errors wen you run npm/yarn install. To fix this run the windows console as administrator and then run vagrant up.
 
 Below is an example JSON payload:
 ```javascript
 {
-  "from": {
-    "email": "petar.ivanov2001@mail.bg",
-    "name": "Petar"
-  },
-  "to": {
+    "message":
     {
-      "email": "petar.ivanov2001@mail.bg",
-      "name": "Petar"
+        "from": {
+            "email": "petar.ivanov2001@mail.bg",
+            "name": "Petar"
+        },
+        "to": {
+            {
+            "email": "petar.ivanov2001@mail.bg",
+            "name": "Petar"
+            }
+        },
+        "subject": "Greetings from Mailjet.",
+        "text": "My first Mailjet email",
+        "html": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
     }
-  },
-  "subject": "Greetings from Mailjet.",
-  "text": "My first Mailjet email",
-  "html": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
 }
 ```
 You can use postman or curl or whatever tool you like to send the json payload to the api.
@@ -54,7 +61,7 @@ http://ipaddress/sendmail
  - test with curl:
  ```bash
  curl -X POST -H "Content-Type: application/json" \
- -d '{"from":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"to":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"subject":"Greetings from Mailjet.","text":"My first Mailjet email","html":"<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!"}' \
+ -d '{"message":{"from":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"to":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"subject":"Greetings from Mailjet.","text":"My first Mailjet email","html":"<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!"}}' \
  http://ipaddress/sendmail
 ```
 
@@ -69,3 +76,5 @@ docker-compose exec app php artisan consume:email
 3. select * from mailservice.emails;
 
 The publisher and worker log the information in the log files with the same names located in storage/logs.
+
+VueJs application is implemented for sending new emails and listing the sent ones.

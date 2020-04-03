@@ -22,6 +22,11 @@ class EmailController extends Controller
         //
     }
 
+    public function index()
+    {
+        return view('app');
+    }
+
     public function getAllEmails()
     {
         $mails = Email::all();
@@ -38,18 +43,18 @@ class EmailController extends Controller
             return false;
         }
 
-        $data = $request->getContent();
+        $data = json_decode($request->getContent(), true);
 
-        $validatedData = $this->validateData(json_decode($data, true));
+        $validatedData = $this->validateData($data['message']);
 
         if(count($validatedData->errors())){
             return $validatedData->errors();
         }
 
-        $mail = $this->storeEmail($data);
+        $mail = $this->storeEmail($data['message']);
 
         $publisher = new EmailPublisher();
-        $publisher->publish($data);
+        $publisher->publish(json_encode($data['message']));
     }
 
     /**
