@@ -8,8 +8,4 @@ class Email extends Model
 {
 
     protected $guarded = [];
-
-    protected $casts = [
-        'email' => 'array'
-   ];
 }
