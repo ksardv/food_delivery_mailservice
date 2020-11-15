@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Email;
 use App\Publisher\EmailPublisher;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class EmailController extends Controller
 {
@@ -27,7 +28,10 @@ class EmailController extends Controller
         return view('app');
     }
 
-    public function getAllEmails()
+    /**
+     * @return JsonResponse
+     */
+    public function getAllEmails(): JsonResponse
     {
         $mails = Email::all();
         return response()->json($mails);
@@ -37,7 +41,7 @@ class EmailController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return JsonResponse
      */
-    public function send(Request $request)
+    public function send(Request $request): JsonResponse
     {
         if(empty($request->all())){
             return false;
@@ -52,9 +56,23 @@ class EmailController extends Controller
         }
 
         $mail = $this->storeEmail($data['message']);
+        return response()->json(Response::HTTP_CREATED);
 
-        $publisher = new EmailPublisher();
-        $publisher->publish(json_encode($data['message']));
+        // $publisher = new EmailPublisher();
+        // $publisher->publish(json_encode($data['message']));
+    }
+
+    /**
+     * This method triggers an event
+     */
+    public function storeEmail($data)
+    {
+        $email = Email::create([
+            'email' => $data,
+            'status' => null
+        ]);
+
+        return $email;
     }
 
     /**
@@ -71,15 +89,5 @@ class EmailController extends Controller
         ]);
 
         return $validatedData;
-    }
-
-    public function storeEmail($data)
-    {
-        $email = Email::create([
-            'email' => $data,
-            'status' => null
-        ]);
-
-        return $email;
     }
 }

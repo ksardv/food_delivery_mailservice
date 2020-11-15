@@ -4,6 +4,11 @@ use App\Email;
 
 class EmailTest extends TestCase
 {
+    public function testMailSend()
+    {
+
+    }
+
     /**
      * @return void
      */

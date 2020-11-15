@@ -44,13 +44,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 #     chown -R $user:$user /home/$user
 
 RUN yarn install
+
+#Compile the assets
+RUN yarn run production
+
 # Set working directory
 WORKDIR /var/www
 
 # USER $user
 
 # Clean Laravel Config
-RUN php artisan config:clear
+#RUN php artisan config:clear
 
 # Port to expose
 EXPOSE 9000
