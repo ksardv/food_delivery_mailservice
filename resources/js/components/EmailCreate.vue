@@ -64,7 +64,7 @@
             },
             send: function()
             {
-                axios.post('/sendmail', { message: this.email })
+                axios.post('/mails', { message: this.email })
                 .then((response) => {
                     console.log(response.data)
                 })
