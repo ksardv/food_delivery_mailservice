@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Email;
 use App\Publisher\EmailPublisher;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmailController extends Controller
 {
+    const EMAIL_INIT_STATUS = "created";
     private $publisher;
 
     /**
@@ -38,25 +40,20 @@ class EmailController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return JsonResponse
      */
     public function send(Request $request): JsonResponse
     {
-        if(empty($request->all())){
-            return false;
+        $validator = Validator::make($request->all(), $this->rules());
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
-
-        $data = json_decode($request->getContent(), true);
-
-        $validatedData = $this->validateData($data['message']);
-
-        if(count($validatedData->errors())){
-            return $validatedData->errors();
-        }
-
-        $mail = $this->storeEmail($data['message']);
-        return response()->json(Response::HTTP_CREATED);
+        //TODO - create event subscriber when mail is created and set the status to processing
+        //after which to publish it
+        $mail = $this->storeEmail($request);
+        return response()->json([], Response::HTTP_CREATED);
 
         // $publisher = new EmailPublisher();
         // $publisher->publish(json_encode($data['message']));
@@ -68,26 +65,32 @@ class EmailController extends Controller
     public function storeEmail($data)
     {
         $email = Email::create([
-            'email' => $data,
-            'status' => null
+            'from' => $data->from['email'],
+            'to' => $data->to['email'],
+            'subject' => $data->subject,
+            'content' => $data->text,
+            'type' => 'default',
+            'status' => self::EMAIL_INIT_STATUS
         ]);
 
         return $email;
     }
 
+
     /**
-     * @param $data
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
      */
-    public function validateData($data)
+    private function rules(): array
     {
-        $validatedData = Validator::make($data, [
+        return [
             'from.email' => 'required|email',
             'from.name' => 'required',
             'to.email' => 'required|email',
             'to.name' => 'required',
-            'subject' => 'required'
-        ]);
-
-        return $validatedData;
+            'subject' => 'required',
+            'text' => 'required'
+        ];
     }
 }
