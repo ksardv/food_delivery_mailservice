@@ -1,50 +1,49 @@
 <?php
 
 use App\Email;
+use App\Http\Controllers\EmailController;
 
 class EmailTest extends TestCase
 {
-    public function testMailSend()
-    {
 
+    /**
+     * @covers EmailController::getAllMails
+     * Must return status 200
+     */
+    public function testGetAllEmails()
+    {
+        //todo Mock database set of emails
     }
 
     /**
-     * @return void
+     * @covers EmailController::send
+     * Must return status 400
      */
-    public function testSetTo(): void
+    public function testMailSendEmptyPayload()
     {
-        $to = ["test@test.bg", "John Doe"];
-
-        $mail = new Email();
-        $mail->to = serialize($to);
-        $this->assertEquals(serialize($to), $mail->to);
+        $payload = [];
+        //assert status is 400
     }
 
-    public function testSetFrom(): void
+    /**
+     * @covers EmailController::send
+     * Must return status 400
+     */
+    public function testMailSendInvalidEmail()
     {
-        $from = ["testfom@test.bg", "Jane Doe"];
-
-        $mail = new Email();
-        $mail->from = serialize($from);
-        $this->assertEquals(serialize($from), $mail->from);
+        $payload = [];
+        //assert status is 400
     }
 
-    public function testSetSubject(): void
+    /**
+     * @covers EmailController::send
+     * Must return status 201
+     */
+    public function testMailSendSuccess()
     {
-        $subject = ["New job offer at the food delivery"];
-
-        $mail = new Email();
-        $mail->subject = $subject;
-        $this->assertEquals($subject, $mail->subject);
-    }
-
-    public function testSetContent(): void
-    {
-        $content = ["Hello we would like to offer you an amazing opportunity to join our company."];
-
-        $mail = new Email();
-        $mail->content = $content;
-        $this->assertEquals($content, $mail->content);
+        $payload = [];
+        //assertstatus 201
+        //assert database having email with the payload content
+        //assert
     }
 }
