@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Email;
-use App\Publisher\EmailPublisher;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmailController extends Controller
