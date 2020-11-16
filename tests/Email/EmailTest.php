@@ -16,7 +16,6 @@ class EmailTest extends TestCase
     {
         //todo Mock database set of emails
         $response = $this->call('GET', '/mails');
-        dd($this->assertTrue(true));
         $this->assertEquals(200, $response->status());
     }
 
@@ -28,18 +27,33 @@ class EmailTest extends TestCase
     {
         $payload = [];
         $response = $this->call('POST', '/mails', $payload);
-        $this->assertEquals(200, $response->status());
+        $this->assertEquals(400, $response->status());
     }
 
-    // /**
-    //  * @covers EmailController::send
-    //  * Must return status 400
-    //  */
-    // public function testMailSendInvalidEmail()
-    // {
-    //     $payload = [];
-    //     //assert status is 400
-    // }
+    /**
+     * @covers EmailController::send
+     * The to email is invalid. Must return status 400
+     */
+    public function testMailSendInvalidEmail()
+    {
+        $errorMsg = '{"to.email":["The to.email must be a valid email address."]}';
+        $payload = [
+            "from" => [
+                "email" => "test431@mail.bg",
+                "name" => "Petar"
+            ],
+            "to" => [
+                "email" => "invalid",
+                "name" => "Petar"
+            ],
+            "subject" => "Test mail comming.",
+            "text" => "My second email"
+        ];
+
+        $response = $this->call('POST', '/mails', $payload);
+        $this->assertEquals(400, $response->status());
+        $this->assertEquals($errorMsg, $response->content());
+    }
 
     // /**
     //  * @covers EmailController::send
