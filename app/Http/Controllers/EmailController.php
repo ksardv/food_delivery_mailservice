@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Email;
+use App\Events\EmailCreated;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmailController extends Controller
 {
-    const EMAIL_INIT_STATUS = "created";
-    private $publisher;
-
     /**
      * Create a new controller instance.
      *
@@ -48,13 +46,9 @@ class EmailController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
-        //TODO - create event subscriber when mail is created and set the status to processing
-        //after which to publish it
+
         $mail = $this->storeEmail($request);
         return response()->json([], Response::HTTP_CREATED);
-
-        // $publisher = new EmailPublisher();
-        // $publisher->publish(json_encode($data['message']));
     }
 
     /**
@@ -68,10 +62,10 @@ class EmailController extends Controller
             'subject' => $data->subject,
             'content' => $data->text,
             'type' => 'default',
-            'status' => self::EMAIL_INIT_STATUS
+            'status' => Email::EMAIL_INIT_STATUS
         ]);
 
-        return $email;
+        event(new EmailCreated($email));
     }
 
 

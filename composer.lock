@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed513cfc2d3d1fba43dc16804f22e049",
+    "content-hash": "f0edb1ff341fabcf90af0061c58c481f",
     "packages": [
         {
             "name": "brick/math",
@@ -57,71 +57,6 @@
                 }
             ],
             "time": "2020-08-18T23:57:15+00:00"
-        },
-        {
-            "name": "bschmitt/laravel-amqp",
-            "version": "2.0.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bschmitt/laravel-amqp.git",
-                "reference": "7c770b1833cc2b03d7046469909cc9b454c1601f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bschmitt/laravel-amqp/zipball/7c770b1833cc2b03d7046469909cc9b454c1601f",
-                "reference": "7c770b1833cc2b03d7046469909cc9b454c1601f",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=v5.5.28",
-                "php": ">=7.0",
-                "php-amqplib/php-amqplib": ">=2.9"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "^3.0@dev"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Bschmitt\\Amqp\\AmqpServiceProvider"
-                    ],
-                    "aliases": {
-                        "Amqp": "Bschmitt\\Amqp\\Facades\\Amqp"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Bschmitt\\Amqp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Björn Schmitt",
-                    "email": "code@bjoern.io"
-                }
-            ],
-            "description": "AMQP wrapper for Laravel and Lumen to publish and consume messages",
-            "keywords": [
-                "AMQP",
-                "Björn Schmitt",
-                "bschmitt",
-                "laravel",
-                "laravel5",
-                "lumen",
-                "message queue",
-                "package",
-                "queue",
-                "rabbitmq"
-            ],
-            "time": "2020-10-07T19:11:35+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -5313,6 +5248,7 @@
                 "faker",
                 "fixtures"
             ],
+            "abandoned": true,
             "time": "2019-12-12T13:22:17+00:00"
         },
         {
@@ -6045,6 +5981,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
