@@ -4,7 +4,7 @@ namespace App\Gateways;
 
 use App\Vendors\MailjetVendor;
 use \Mailjet\Resources;
-use App\Email\Email;
+use App\Email;
 
 class MailjetGateway implements MailGateway
 {
@@ -52,7 +52,7 @@ class MailjetGateway implements MailGateway
             try {
                 $response = $this->vendor->post(Resources::$Email, ['body' => $body]);
                 return $response->success();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 echo 'Caught exception: ',  $e->getMessage(), "\n";
             }
     }

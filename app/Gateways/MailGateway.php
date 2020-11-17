@@ -2,7 +2,7 @@
 
 namespace App\Gateways;
 
-use App\Email\Email;
+use App\Email;
 
 interface MailGateway
 {

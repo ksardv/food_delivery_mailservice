@@ -10,7 +10,8 @@
         "mailjet/mailjet-apiv3-php": "^1.4",
         "php-amqplib/php-amqplib": "^2.11",
         "sendgrid/sendgrid": "~7",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^10"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
