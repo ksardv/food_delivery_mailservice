@@ -13,10 +13,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="email in emailsList" :key="email.id">
-                        <td>{{ email.email.from.email }}</td>
-                        <td>{{ email.email.to.email }}</td>
-                        <td>{{ email.email.subject }}</td>
-                        <td>{{ email.email.text }}</td>
+                        <td>{{ email.from }}</td>
+                        <td>{{ email.to }}</td>
+                        <td>{{ email.subject }}</td>
+                        <td>{{ email.content }}</td>
                         <td>{{ email.status }}</td>
                     </tr>
                 </tbody>
