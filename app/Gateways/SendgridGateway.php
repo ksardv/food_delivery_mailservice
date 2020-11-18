@@ -3,7 +3,7 @@
 namespace App\Gateways;
 use App\Vendors\SendgridVendor;
 use SendGrid\Mail\Mail;
-use App\Email\Email;
+use App\Email;
 
 class SendgridGateway implements MailGateway
 {
@@ -40,7 +40,7 @@ class SendgridGateway implements MailGateway
         try {
             $response = $sendgrid->send($mail);
             return $response->statusCode();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo 'Caught exception: '. $e->getMessage() ."\n";
         }
     }

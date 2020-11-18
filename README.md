@@ -9,21 +9,26 @@ The tech stack is lumen, docker, mysql, nginx.
 3. copy .env.example to .env and enter the data as follow:
 ```bash
 DB_CONNECTION=mysql
-DB_HOST=<mailservice_mysql-service-ip>
+DB_HOST=localhost
 DB_PORT=3306
 DB_DATABASE=mailservice
 DB_USERNAME=root
 DB_PASSWORD=root
 
 CACHE_DRIVER=file
-QUEUE_CONNECTION=sync
+QUEUE_CONNECTION=rabbitmq
 
 MAILJET_APIKEY=your_mailjet_apikey
 MAILJET_APISECRET=your_mailjetapisecret_key
 
 SENDGRID_API_KEY=sendgrid_apikey
 
-RABBITMQ_HOST=<mailservice_rabbitmq-service-ip>
+RABBITMQ_HOST=localhost
+RABBITMQ_PORT=5672
+RABBITMQ_VHOST=/
+RABBITMQ_LOGIN=guest
+RABBITMQ_PASSWORD=guest
+RABBITMQ_QUEUE=emails
 ```
 4. run 'docker-compose up -d'
  - In case mysql exits with exit code 1 run 'docker-compose up mysql -d'
@@ -55,14 +60,17 @@ Below is an example JSON payload:
 }
 ```
 You can use postman or curl or whatever tool you like to send the json payload to the api.
-send it to the following endpoint:
-http://ipaddress/sendmail
- - to get the endpoint ip address run 'docker inspect mailservice_nginx'
+Open a terminal and run either of the below commands to consume the messages from the queue:
+'docker exec -it mailservice-app php artisan queue:work' which is the default laravel command
+or the command provided by the rabbitmq package
+docker exec -it mailservice-app php artisan rabbitmq:consume
+send the request with the email payload to the following endpoint:
+http://localhost:8080/mails
  - test with curl:
  ```bash
  curl -X POST -H "Content-Type: application/json" \
  -d '{"message":{"from":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"to":{"email":"petar.ivanov2001@mail.bg","name":"Petar"},"subject":"Greetings from Mailjet.","text":"My first Mailjet email","html":"<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!"}}' \
- http://ipaddress/sendmail
+ http://localhost:8080/mails
 ```
 
 Now the emails should be added to the queue.

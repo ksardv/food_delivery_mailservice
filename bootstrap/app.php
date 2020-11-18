@@ -94,11 +94,11 @@ $app->configure('app');
 // $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\EmailServiceProvider::class);
+$app->register(VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class);
 $app->configure('services');
-$app->configure('amqp');
+$app->configure('queue');
 $app->configure('database');
 $app->configure('logging');
-//$app->register(Bschmitt\Amqp\LumenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
