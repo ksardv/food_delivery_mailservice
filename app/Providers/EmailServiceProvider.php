@@ -11,13 +11,11 @@ class EmailServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(MailjetVendor::class, function ($app) {
-            $configParams = $app->make('config')->get('services.mailjet', []);
-            return new MailjetVendor($configParams);
+            return new MailjetVendor($app['config']['services.mailjet']);
         });
 
         $this->app->singleton(SendgridVendor::class, function ($app) {
-            $configParams = $app->make('config')->get('services.sendgrid', []);
-            return new SendgridVendor($configParams);
+            return new SendgridVendor($app['config']['services.sendgrid']);
         });
     }
 }
