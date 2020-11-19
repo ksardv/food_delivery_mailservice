@@ -88,4 +88,5 @@ The publisher and worker log the information in the log files with the same name
 VueJs application is implemented for sending new emails and listing the sent ones.
 
 TODO:
-Cypress for frontend testing
+1. Cypress for frontend testing
+2. Update the db email status from the gateway response

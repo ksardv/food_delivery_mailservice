@@ -39,18 +39,20 @@ class EmailTest extends TestCase
      */
     public function testMailSendInvalidEmail()
     {
-        $errorMsg = '{"to.email":["The to.email must be a valid email address."]}';
+        $errorMsg = '{"message.to.email":["The message.to.email must be a valid email address."]}';
         $payload = [
-            "from" => [
-                "email" => "test431@mail.bg",
-                "name" => "Petar"
-            ],
-            "to" => [
-                "email" => "invalid",
-                "name" => "Petar"
-            ],
-            "subject" => "Test mail comming.",
-            "text" => "My second email"
+            "message" => [
+                "from" => [
+                    "email" => "test431@mail.bg",
+                    "name" => "Petar"
+                ],
+                "to" => [
+                    "email" => "invalid",
+                    "name" => "Petar"
+                ],
+                "subject" => "Test mail comming.",
+                "text" => "My second email"
+            ]
         ];
 
         $response = $this->call('POST', '/mails', $payload);
@@ -67,22 +69,24 @@ class EmailTest extends TestCase
         Event::fake();
 
         $payload = [
-            "from" => [
-                "email" => "test431@mail.bg",
-                "name" => "Petar"
-            ],
-            "to" => [
-                "email" => "validmail@test.bg",
-                "name" => "Petar"
-            ],
-            "subject" => "Test mail coming.",
-            "text" => "My second email"
+            "message" => [
+                "from" => [
+                    "email" => "test431@mail.bg",
+                    "name" => "Petar"
+                ],
+                "to" => [
+                    "email" => "validmail@test.bg",
+                    "name" => "Petar"
+                ],
+                "subject" => "Test mail coming.",
+                "text" => "My second email"
+            ]
         ];
 
         $response = $this->call('POST', '/mails', $payload);
 
         Event::assertDispatched(function (EmailCreated $event) use ($payload) {
-            return $event->email->subject === $payload['subject'];
+            return $event->email->subject === $payload['message']['subject'];
         });
         $this->assertEquals(201, $response->status());
         $this->seeInDatabase('emails', ['from' => 'test431@mail.bg']);

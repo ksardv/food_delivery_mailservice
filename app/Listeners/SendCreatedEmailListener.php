@@ -35,6 +35,7 @@ class SendCreatedEmailListener implements ShouldQueue
         $event->email->save();
     }
 
+    // TODO - update the email status in the Db fromthe gateway response
     public function sendMail($event)
     {
         $this->mailGateway->send($event->email);
