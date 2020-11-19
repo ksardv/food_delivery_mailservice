@@ -66,7 +66,6 @@
             {
                 axios.post('/mails', { message: this.email })
                 .then((response) => {
-                    //if response is 201 created redirect to list mails
                     if (response.status == 201) {
                         this.$router.push({ path: 'list-email' })
                     }
