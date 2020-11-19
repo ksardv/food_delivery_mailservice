@@ -5,12 +5,6 @@
 
 return [
 
-    'mailjet' => [
-        'key' => env('MAILJET_APIKEY'),
-        'secret' => env('MAILJET_APISECRET'),
-    ],
+    'mail-provider' => 'mailjet'
 
-    'sendgrid' => [
-        'key' => env('SENDGRID_API_KEY'),
-    ]
 ];

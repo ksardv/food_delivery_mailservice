@@ -6,9 +6,16 @@ use App\Events\EmailCreated;
 use App\Email;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
+use App\Gateways\MailGateway;
 
 class SendCreatedEmailListener implements ShouldQueue
 {
+    private $mailGateway;
+
+    public function __construct(MailGateway $gateway)
+    {
+        $this->mailGateway = $gateway;
+    }
     /**
      * Handle the event.
      *
@@ -17,10 +24,19 @@ class SendCreatedEmailListener implements ShouldQueue
      */
     public function handle(EmailCreated $event)
     {
-        //uncomment the below line to test the job taking 10 seconds to be finished
-        //sleep(10);
+        Log::info('Email is being processed');
+        $this->setMailStatus($event);
+        $this->sendMail($event);
+    }
+
+    public function setMailStatus($event)
+    {
         $event->email->status = Email::EMAIL_PROC_STATUS;
         $event->email->save();
-        Log::info('Email is being processed');
+    }
+
+    public function sendMail($event)
+    {
+        $this->mailGateway->send($event->email);
     }
 }

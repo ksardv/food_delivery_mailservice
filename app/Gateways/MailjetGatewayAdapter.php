@@ -6,7 +6,7 @@ use App\Vendors\MailjetVendor;
 use \Mailjet\Resources;
 use App\Email;
 
-class MailjetGateway implements MailGateway
+class MailjetGatewayAdapter implements MailGateway
 {
     private $vendor;
 
@@ -20,7 +20,6 @@ class MailjetGateway implements MailGateway
      */
     public function send($email)
     {
-        echo 'sending through mailjet';
         $data = json_decode($email, true);
 
             $body = [
@@ -48,7 +47,6 @@ class MailjetGateway implements MailGateway
             if(isset($data['text'])){
                 $body['Messages'][0]['TextPart'] = $data['text'];
             }
-
             try {
                 $response = $this->vendor->post(Resources::$Email, ['body' => $body]);
                 return $response->success();

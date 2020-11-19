@@ -5,7 +5,7 @@ use App\Vendors\SendgridVendor;
 use SendGrid\Mail\Mail;
 use App\Email;
 
-class SendgridGateway implements MailGateway
+class SendgridGatewayAdapter implements MailGateway
 {
     private $vendor;
 
@@ -20,7 +20,6 @@ class SendgridGateway implements MailGateway
      */
     public function send($email)
     {
-        echo 'sending via sendgrid gw';
         $data = json_decode($email, true);
 
         $mail = new Mail();

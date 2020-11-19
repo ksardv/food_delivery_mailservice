@@ -86,3 +86,8 @@ docker-compose exec app php artisan consume:email
 The publisher and worker log the information in the log files with the same names located in storage/logs.
 
 VueJs application is implemented for sending new emails and listing the sent ones.
+
+TODO:
+1. Design an easy way to add multiple fallback email third party providers without using laravel's mailer
+2. Unit tests
+3. Cypress for frontend testing
