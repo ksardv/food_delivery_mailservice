@@ -98,6 +98,7 @@ $app->register(VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServic
 $app->configure('services');
 $app->configure('queue');
 $app->configure('database');
+$app->configure('mail');
 $app->configure('logging');
 
 /*

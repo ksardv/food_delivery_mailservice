@@ -12,8 +12,7 @@ class MailjetVendorTest extends TestCase
      */
     public function testReturnInstanceType(): void
     {
-        $configurationParams = config('services.mailjet');
-        $mailjetVendor = new MailjetVendor($configurationParams);
+        $mailjetVendor = new MailjetVendor(config('services.mailjet'));
         $instanceType = $mailjetVendor->getClient();
 
         $this->assertInstanceOf(Client::class, $instanceType);

@@ -3,6 +3,7 @@
 use App\Gateways\SendgridGateway;
 use App\Vendors\SendgridVendor;
 
+
 class SendgridGatewayTest extends TestCase
 {
     private $gateway;
@@ -11,9 +12,7 @@ class SendgridGatewayTest extends TestCase
     {
         parent::setUp();
 
-        $configurationParams = config('services.sendgrid');
-        $sendgridVendor = new SendgridVendor($configurationParams);
-
+        $sendgridVendor = new SendgridVendor(config('services.sendgrid'));
         $this->gateway = new SendgridGateway($sendgridVendor);
     }
 

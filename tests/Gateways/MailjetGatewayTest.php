@@ -1,9 +1,8 @@
 <?php
 
-use Mailjet\Client;
 use App\Gateways\MailjetGateway;
 use App\Vendors\MailjetVendor;
-use Mailjet\Resources;
+
 
 class MailjetGatewayTest extends TestCase
 {
@@ -13,9 +12,7 @@ class MailjetGatewayTest extends TestCase
     {
         parent::setUp();
 
-        $configurationParams = config('services.mailjet');
-        $mailjetVendor = new MailjetVendor($configurationParams);
-
+        $mailjetVendor = new MailjetVendor(config('services.mailjet'));
         $this->gateway = new MailjetGateway($mailjetVendor);
     }
 
