@@ -1,6 +1,6 @@
 <?php
 
-use App\Gateways\MailjetGateway;
+use App\Gateways\MailjetGatewayAdapter;
 use App\Vendors\MailjetVendor;
 
 
@@ -12,8 +12,8 @@ class MailjetGatewayTest extends TestCase
     {
         parent::setUp();
 
-        $mailjetVendor = new MailjetVendor(config('services.mailjet'));
-        $this->gateway = new MailjetGateway($mailjetVendor);
+        $mailjetVendor = new MailjetVendor(config('mail.mailjet'));
+        $this->gateway = new MailjetGatewayAdapter($mailjetVendor);
     }
 
     /**
@@ -23,7 +23,7 @@ class MailjetGatewayTest extends TestCase
      */
     public function testInstanceType(): void
     {
-        $this->assertInstanceOf(MailjetGateway::class, $this->gateway);
+        $this->assertInstanceOf(MailjetGatewayAdapter::class, $this->gateway);
     }
 
     /**
