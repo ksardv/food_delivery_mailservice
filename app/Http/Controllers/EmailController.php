@@ -47,7 +47,7 @@ class EmailController extends Controller
             return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
         }
 
-        $mail = $this->storeEmail($request);
+        $mail = $this->storeEmail($request->input('message'));
         return response()->json([], Response::HTTP_CREATED);
     }
 
@@ -56,14 +56,20 @@ class EmailController extends Controller
      */
     public function storeEmail($data)
     {
-        $email = Email::create([
-            'from' => $data->from['email'],
-            'to' => $data->to['email'],
-            'subject' => $data->subject,
-            'content' => $data->text,
-            'type' => 'default',
-            'status' => Email::EMAIL_INIT_STATUS
-        ]);
+        try {
+            $email = Email::create([
+                'from' => $data['from']['email'],
+                'to' => $data['to']['email'],
+                'subject' => $data['subject'],
+                'content' => $data['text'],
+                'type' => 'default',
+                'status' => Email::EMAIL_INIT_STATUS
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return false;
+        }
 
         event(new EmailCreated($email));
     }
@@ -77,12 +83,13 @@ class EmailController extends Controller
     private function rules(): array
     {
         return [
-            'from.email' => 'required|email',
-            'from.name' => 'required',
-            'to.email' => 'required|email',
-            'to.name' => 'required',
-            'subject' => 'required',
-            'text' => 'required'
+            'message' => 'required',
+            'message.from.email' => 'required|email',
+            'message.from.name' => 'required',
+            'message.to.email' => 'required|email',
+            'message.to.name' => 'required',
+            'message.subject' => 'required',
+            'message.text' => 'required'
         ];
     }
 }
