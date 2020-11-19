@@ -2,7 +2,7 @@
 
 namespace App\Vendors;
 
-use \Sendgrid;
+use \SendGrid;
 
 class SendgridVendor implements Vendor
 {
@@ -15,7 +15,7 @@ class SendgridVendor implements Vendor
      */
     public function __construct(array $configurationParams)
     {
-        $this->client = new Sendgrid(
+        $this->client = new SendGrid(
             $configurationParams['key'],
         );
     }
@@ -23,9 +23,9 @@ class SendgridVendor implements Vendor
     /**
      * Get Sendgrid client connection.
      *
-     * @return Sendgrid
+     * @return SendGrid
      */
-    public function getClient(): Sendgrid
+    public function getClient(): SendGrid
     {
         return $this->client;
     }

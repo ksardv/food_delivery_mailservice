@@ -4,7 +4,6 @@ namespace Tests\Email;
 
 use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Event;
-use App\Email;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use App\Events\EmailCreated;
 use TestCase;
