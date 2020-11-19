@@ -1,6 +1,6 @@
 <?php
 
-use App\Gateways\SendgridGateway;
+use App\Gateways\SendgridGatewayAdapter;
 use App\Vendors\SendgridVendor;
 
 
@@ -12,8 +12,8 @@ class SendgridGatewayTest extends TestCase
     {
         parent::setUp();
 
-        $sendgridVendor = new SendgridVendor(config('services.sendgrid'));
-        $this->gateway = new SendgridGateway($sendgridVendor);
+        $sendgridVendor = new SendgridVendor(config('mail.sendgrid'));
+        $this->gateway = new SendgridGatewayAdapter($sendgridVendor);
     }
 
     /**
@@ -23,7 +23,7 @@ class SendgridGatewayTest extends TestCase
      */
     public function testInstanceType(): void
     {
-        $this->assertInstanceOf(SendgridGateway::class, $this->gateway);
+        $this->assertInstanceOf(SendgridGatewayAdapter::class, $this->gateway);
     }
 
     /**

@@ -12,7 +12,7 @@ class SendgridVendorTest extends TestCase
      */
     public function testReturnInstanceType(): void
     {
-        $sendgridVendor = new SendgridVendor(config('services.sendgrid'));
+        $sendgridVendor = new SendgridVendor(config('mail.sendgrid'));
         $instanceType = $sendgridVendor->getClient();
 
         $this->assertInstanceOf(Sendgrid::class, $instanceType);
