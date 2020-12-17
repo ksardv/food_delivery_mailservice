@@ -35,6 +35,7 @@ class SendgridGatewayAdapter implements MailGateway
             );
         }
 
+        // below should be replaced with this vendor which is basically the same
         $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
         try {
             $response = $sendgrid->send($mail);

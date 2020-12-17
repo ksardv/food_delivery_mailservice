@@ -1,0 +1,20 @@
+1. docker config - having to set the IP everytime after installation - why?
+I removed the network the docker created and simply used localhost
+2. rabbitmq implementation
+3. services fallback
+4. unit tests
+
+I started with first testing the default laravel queue and check how it works. It was deffinately not the way my rabbotmq implementaion worked.
+I installed a rabibitmq library for laravel and set the confg files and functionality accordingly. Removed the extra consumer publisher and worker classes and the console commands.
+Since lumen does not have form requests I could not take out the request validation out and ha to leave it with rules, but still it changed a bit.
+Then I changes the way I save the Email in the database - it was crappy - just one field.
+Then I wanted to trigger an event when an emai lis created call the listener (which implements the ShouldQueue) to be sure to grab the event.
+I added new statuses created and processing to distinguish between stages. I must also add the final status from the 3rd party APIs when I check them.
+I added logging to make sure every time an email is created it is being logged (needs further refinement).
+I then did not like the way the different email providers were being integrated. I changed the email service provider. Set a new service to select a mail provider and
+based on it ot bind the Gateway Interface to the proper Adapter. I decided to go with adapeter pattern since it is dealing with 3rd party providers which have different implementation
+but same functionality.
+Then I got to unit testing.
+What needs to be done is integrate cypress in the frontend and do more unit tests and further refine my mail adapters.
+
+rename vendors to mailclients - options to be callable?

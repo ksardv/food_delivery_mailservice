@@ -90,3 +90,5 @@ VueJs application is implemented for sending new emails and listing the sent one
 TODO:
 1. Cypress for frontend testing
 2. Update the db email status from the gateway response
+
+Further information - the steps taken and reasons why when doing the refactoring from the first version are described in refactoring_steps.txt
